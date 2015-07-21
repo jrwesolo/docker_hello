@@ -1,0 +1,13 @@
+#!/bin/sh
+
+mkdir /www
+tee /www/index.html > /dev/null <<EOF
+<html>
+  <body>
+    <code><b>Hostname</b></b>&nbsp;$(hostname)</code><br/>
+    <code><b>Started</b></b>&nbsp;&nbsp;$(date)</code>
+  </body>
+</html>
+EOF
+
+exec lighttpd -D -f /etc/lighttpd.conf

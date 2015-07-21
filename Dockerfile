@@ -1,9 +1,14 @@
-FROM         progrium/busybox
-MAINTAINER   Jordan Wesolowski <jrwesolo@gmail.com>
+FROM       gliderlabs/alpine
+MAINTAINER Jordan Wesolowski <jrwesolo@gmail.com>
 
-RUN opkg-install lighttpd
+# install lighttpd
+RUN apk update && \
+    apk add lighttpd && \
+    rm -rf /var/cache/apk
+# lighttpd configuration
 RUN adduser -D www
 COPY lighttpd.conf /etc/
-COPY index.html /www/
 EXPOSE 80
-ENTRYPOINT ["lighttpd", "-D", "-f", "/etc/lighttpd.conf"]
+
+COPY run /
+ENTRYPOINT ["/run"]
