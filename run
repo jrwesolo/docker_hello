@@ -4,8 +4,20 @@ mkdir /www
 tee /www/index.html > /dev/null <<EOF
 <html>
   <body>
-    <code><b>Hostname</b></b>&nbsp;$(hostname)</code><br/>
-    <code><b>Started</b></b>&nbsp;&nbsp;$(date)</code>
+    <table>
+      <tr>
+        <td><code><b>Hostname</b></code></td>
+        <td><code>$(hostname)</code></td>
+      </tr>
+      <tr>
+        <td><code><b>Container</b></code></td>
+        <td><code>$(cat /proc/self/cgroup | grep 'cpu:/' | sed 's/\([0-9]\):cpu:\/docker\///g')</code></td>
+      </tr>
+      <tr>
+        <td><code><b>Started</b></code></td>
+        <td><code>$(date)</code></td>
+      </tr>
+    </table>
   </body>
 </html>
 EOF
