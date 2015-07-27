@@ -21,6 +21,14 @@ tee /www/index.html > /dev/null <<EOF
         <td><code><b>Started</b></code></td>
         <td><code>$(date)</code></td>
       </tr>
+      <tr>
+        <td><code><b>Version</b></code></td>
+        <td><code>$(lighttpd -v | head -1 | awk '{print $1}')</code></td>
+      </tr>
+      <tr>
+        <td><code><b>Status</b></code></td>
+        <td><code><a href="/status">Link</a></code></td>
+      </tr>
     </table>
   </body>
 </html>
