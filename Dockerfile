@@ -1,14 +1,15 @@
-FROM       gliderlabs/alpine
+FROM       alpine:3.2
 MAINTAINER Jordan Wesolowski <jrwesolo@gmail.com>
 
-# install lighttpd
+# install lighttpd/openssl
 RUN apk update && \
-    apk add lighttpd && \
-    rm -rf /var/cache/apk
+    apk add lighttpd openssl && \
+    rm -rf /var/cache/apk/*
+
 # lighttpd configuration
 RUN adduser -D www
 COPY lighttpd.conf /etc/
-EXPOSE 80
+EXPOSE 80 443
 
 COPY run /
 ENTRYPOINT ["/run"]

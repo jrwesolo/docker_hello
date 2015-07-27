@@ -1,4 +1,8 @@
-#!/bin/sh
+#!/bin/sh -e
+
+openssl req -new -newkey rsa:4096 -days 365 -nodes -x509 -batch \
+  -keyout /etc/lighttpd-server.pem \
+  -out /etc/lighttpd-server.pem > /dev/null 2>&1
 
 mkdir /www
 tee /www/index.html > /dev/null <<EOF
@@ -22,4 +26,5 @@ tee /www/index.html > /dev/null <<EOF
 </html>
 EOF
 
+lighttpd -v
 exec lighttpd -D -f /etc/lighttpd.conf
